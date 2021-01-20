@@ -1,0 +1,47 @@
+html{
+    background-color:black;
+}
+.container{
+    height: 500px;
+    width: 300px;
+    background-color:white;
+    margin:0 auto;
+    top:30px;
+    position: relative;
+    border-radius: 10px;
+}
+#result{
+    height: 100px;
+}
+#history{
+    text-align: right;
+    height: 20px;
+    margin: 0px 20px;
+    font-size: 15px;
+    padding-top:4px ;
+}
+#output{
+    text-align: right;
+    margin: 20px 20px;
+    font-size: 30px;
+    height: 60px;
+
+}
+#keyboard{
+    height: 400px;
+}
+.operator, .number, .empty{
+	width: 40px;
+	height: 40px;
+	margin: 15px;
+	border-radius: 50%;
+	border-width: 0;
+	font-weight: bold;
+	font-size: 20px;
+}
+.number, .empty{
+    background-color: #fff;
+}
+.number, .operator{
+	cursor: pointer;
+}
