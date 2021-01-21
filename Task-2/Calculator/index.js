@@ -22,9 +22,9 @@ for(bt of buttons){
                     calculate.pop(calculate[v+1]);
                 }
                 if(calculate[v]==calculate[v+1] && ['+','-','x','/','%'].includes(calculate[v])){
-                calculate.pop(calculate[v+1]);
-                temp=history.innerHTML;
-                history.innerHTML=temp.substring(0,temp.length-1);
+                    calculate.pop(calculate[v+1]);
+                    temp=history.innerHTML;
+                    history.innerHTML=temp.substring(0,temp.length-1);
                 }
             }
             output.innerHTML=buttonText;    
