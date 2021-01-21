@@ -1,0 +1,20 @@
+ var user1Message=document.createElement("div");
+             user1Message.classList.add("msg1");
+             user1Message.innerHTML=textbox1.value;
+             let span=document.createElement('span');
+             span.classList.add("sender");
+             let sender=document.createTextNode(user1.options[user1.selectedIndex].text);
+             span.appendChild(sender);
+             user1Message.appendChild(span);
+             messages.appendChild(user1Message);
+
+
+  var user2Message=document.createElement("div");
+   user2Message.classList.add("msg2");
+   user2Message.innerHTML=textbox2.value;
+   span=document.createElement('span');
+   span.classList.add("sender");
+   sender=document.createTextNode(user1.options[user2.selectedIndex].text);
+   span.appendChild(sender);
+   user2Message.appendChild(span);
+   messages.appendChild(user2Message);
