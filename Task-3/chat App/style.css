@@ -60,8 +60,5 @@ h1{
    float:right; 
    font-size: 15px;
    padding: 2px;
-}
-#chats{
-    padding: 3px;
-    font-size: 15px;
+   color: #666666;
 }
