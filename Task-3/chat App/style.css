@@ -54,7 +54,8 @@ h1{
 }
 .msg2{
     margin-left: 60px;
-    background-color:#F2F2F2;
+    background-color:lightblue;
+    color: white;
 }
 .sender{
    float:right; 

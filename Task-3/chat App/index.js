@@ -10,25 +10,28 @@ let u1,u2;
 let firstu1=true;
 let firstu2=true;
 user1.addEventListener('change',() => {
-   if(firstu1){button1.disabled=false;button2.disabled=false;u1=user1.value;firstu1=false;}
+   button1.disabled=false;button2.disabled=false;
+   if(firstu1){messages.innerHTML='';u1=user1.value;firstu1=false;}
    else {messages.innerHTML='';history();u1=user1.value;firstu1=true;}
 
    if(u1==u2){button1.disabled=true;button2.disabled=true;};
 })
 user2.addEventListener('change',() => {
-   if(firstu2){button2.disabled=false;button1.disabled=false;u2=user2.value;firstu2=false;console.log('u1',u1);console.log('u2',u2);if(u1==u2){button2.disabled=true;}}
+   button2.disabled=false;button1.disabled=false;
+   if(firstu2){messages.innerHTML='';u2=user2.value;firstu2=false;}
    else {messages.innerHTML='';history();u2=user2.value;firstu2=true;}
 
    if(u1==u2){button2.disabled=true;button1.disabled=true;};
 })
-function conversation(msg,sender,recipient){
-   this.msg=msg;
+function conversation(senderMsg,receiverMsg,sender,recipient){
+   this.senderMsg=senderMsg;
+   this.receiverMsg=receiverMsg;
    this.sender=sender;
    this.recipient=recipient;
 };
 button1.addEventListener('click',() => {
    if(textbox1 && textbox1.value){
-      var senderconv=new conversation(textbox1.value,u1,u2);
+      let senderconv=new conversation(textbox1.value,null,u1,u2);
       allMessages.push(senderconv);
       senderAddingToMessageBox(senderconv);
       textbox1.value="";
@@ -36,7 +39,7 @@ button1.addEventListener('click',() => {
    })
 button2.addEventListener('click',() => {
    if(textbox2 && textbox2.value){
-      var receiverconv=new conversation(textbox2.value,u2,u1);
+      let receiverconv=new conversation(null,textbox2.value,u2,u1);
       allMessages.push(receiverconv);
       receiverAddingToMessageBox(receiverconv);
       textbox2.value="";
@@ -44,23 +47,23 @@ button2.addEventListener('click',() => {
    })
 console.log(allMessages);
 function senderAddingToMessageBox(senderconv){
-   var user1Message=document.createElement("div");
+   let user1Message=document.createElement("div");
    user1Message.classList.add("msg1");
-   user1Message.innerHTML=senderconv.msg;
-   var span=document.createElement('span');
+   user1Message.innerHTML=senderconv.senderMsg;
+   let span=document.createElement('span');
    span.classList.add("sender");
-   var sender=document.createTextNode(senderconv.sender);
+   let sender=document.createTextNode(senderconv.sender);
    span.appendChild(sender);
    user1Message.appendChild(span);
    messages.appendChild(user1Message);
 }
 function receiverAddingToMessageBox(receiverconv){
-   var user2Message=document.createElement("div");
+   let user2Message=document.createElement("div");
    user2Message.classList.add("msg2");
-   user2Message.innerHTML=receiverconv.msg;
-   var span=document.createElement('span');
+   user2Message.innerHTML=receiverconv.receiverMsg;
+   let span=document.createElement('span');
    span.classList.add("sender");
-   var receiver=document.createTextNode(receiverconv.sender);
+   let receiver=document.createTextNode(receiverconv.sender);
    span.appendChild(receiver);
    user2Message.appendChild(span);
    messages.appendChild(user2Message)
@@ -68,12 +71,8 @@ function receiverAddingToMessageBox(receiverconv){
 console.log(allMessages);
 
 function history(){
-    
-
-   for(let d=0;d<allMessages.length;d++){
-      messages.innerHTML+=allMessages[d].msg+"&nbsp &nbsp";
-      messages.innerHTML+=allMessages[d].sender+"&nbsp &nbsp";
-      messages.innerHTML+=allMessages[d].recipient+"&nbsp &nbsp";
-      messages.innerHTML+="<br/>";
-   }
+  for(let d=0;d<allMessages.length;d++){
+     if(allMessages[d].senderMsg!=null)senderAddingToMessageBox(allMessages[d]);
+     else receiverAddingToMessageBox(allMessages[d]);
+  }  
 }
