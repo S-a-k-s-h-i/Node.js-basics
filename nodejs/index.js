@@ -7,6 +7,7 @@ const fs=require('fs');
 // org_data=buf_data.toString();
 // console.log(org_data);
 
-fs.renameSync('read.txt','readwrite.txt');
+// fs.renameSync('read.txt','readwrite.txt');
+console.log("hh");
 
 
