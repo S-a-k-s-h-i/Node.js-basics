@@ -5,7 +5,7 @@ const port=8080
 // MIDDLEWARE function mylogger
 app.use(mylogger);
 function mylogger(req,res,next){
-    console.log("LOGGED");
+    console.log("LOGGED...");
     console.log(req.originalUrl);
     next();
 }
