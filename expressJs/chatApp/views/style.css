@@ -1,65 +1,74 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
-body{
-    display: flex;
-    align-items: center;
+body {
+  display: flex;
+  align-items: center;
 }
-h1{
-    text-align: center;
+.head {
+  display: flex;
+  flex-direction: row;
 }
-.container{
-    height: 100vh;
-    width: 600px;
-    margin: 0px auto; 
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    border: 1px solid #808080;
+h1 {
+  text-align: center;
 }
-.users{
-    flex-direction: row;
+.container {
+  height: 100vh;
+  width: 600px;
+  margin: 0px auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid #808080;
 }
-#dropdown-user1{
-    float: left;
-    margin: 20px;
+.users {
+  flex-direction: row;
 }
-#dropdown-user2{
-    float: right;
-    margin: 20px;
+#dropdown-user1 {
+  float: left;
+  margin: 20px;
 }
-#textbox1,#textbox2{
-    margin-top: 20px;
-    font-size: 15px;
+#dropdown-user2 {
+  float: right;
+  margin: 20px;
 }
-#messages{
-    margin-top: 200px;
-    height: 500px;
-    width: 500px;
-    margin: 0px auto;
-    
+#textbox1,
+#textbox2 {
+  margin-top: 20px;
+  font-size: 15px;
 }
-.msg1{
-    background-color:#BFBFBF;
+#messages {
+  margin-top: 200px;
+  height: 500px;
+  width: 500px;
+  margin: 0px auto;
 }
-.msg1,.msg2{
-    height: 25px;
-    width: 400px;
-    font-size: 20px;
-    border:1px solid grey;
-    margin: 20px;
-    border-radius: 10px;
-    padding: 3px;
+.msg1 {
+  background-color: #bfbfbf;
 }
-.msg2{
-    margin-left: 60px;
-    background-color:lightblue;
-    color: white;
+.msg1,
+.msg2 {
+  height: 25px;
+  width: 400px;
+  font-size: 20px;
+  border: 1px solid grey;
+  margin: 20px;
+  border-radius: 10px;
+  padding: 3px;
 }
-.sender{
-   float:right; 
-   font-size: 15px;
-   padding: 2px;
-   color: #666666;
+.msg2 {
+  margin-left: 60px;
+  background-color: lightblue;
+  color: white;
+}
+.sender {
+  float: right;
+  font-size: 15px;
+  padding: 2px;
+  color: #666666;
+}
+#edit {
+  padding-left: 100px;
+  float: right;
 }

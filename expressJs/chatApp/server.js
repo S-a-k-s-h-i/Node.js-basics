@@ -23,16 +23,8 @@ app.get('/messages',(req,res) => {
 
 // Adding a message
 app.post('/messages',(req,res) => {
-    // const data={
-    //     id:allMessages.length+1,
-    //     sender:req.body.sender,
-    //     msg:req.body.msg,
-    //     recepient:req.body.recepient
-    // }
     let senderconv=req.body;
-    // console.log(senderconv);
     allMessages.push(senderconv)
-    console.log(allMessages);
     res.send(senderconv)
 })
 
