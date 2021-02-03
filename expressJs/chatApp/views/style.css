@@ -9,6 +9,7 @@ body {
 .head {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 h1 {
   text-align: center;
@@ -43,6 +44,7 @@ h1 {
   height: 500px;
   width: 500px;
   margin: 0px auto;
+  padding-top: 50px;
 }
 .msg1 {
   background-color: #bfbfbf;
@@ -70,5 +72,13 @@ h1 {
 }
 #edit {
   padding-left: 100px;
+  float: right;
+  display: flex;
+  justify-content: space-between;
+}
+#ld {
+  float: left;
+}
+#delete {
   float: right;
 }
