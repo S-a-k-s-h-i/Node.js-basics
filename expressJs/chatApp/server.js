@@ -1,8 +1,9 @@
 const express=require("express");
 const hbs=require("hbs");
 const path=require("path");
+const bodyParser=require("body-parser");
+const mysqlConnection=require('./connection');
 const app=express();
-let bodyParser=require("body-parser");
 const port=3000;
 app.use(express.json());
 const staticPath=path.join(__dirname,'/views');
@@ -18,14 +19,24 @@ app.get('/',(req,res) => {
 let allMessages=[];
 
 app.get('/messages',(req,res) => {
-    res.send(allMessages);
+    // res.send(allMessages);
+    mysqlConnection.query("SELECT * FROM chats",function(err,result){
+        if (err) throw err;
+        res.send(result);
+    })
 })
 
 // Adding a message
 app.post('/messages',(req,res) => {
     let senderconv=req.body;
-    allMessages.push(senderconv)
-    res.send(senderconv)
+    console.log('......',senderconv);
+    // allMessages.push(senderconv)
+    // res.send(senderconv)
+    mysqlConnection.query("INSERT INTO chats (sender,recipient,senderMsg,receiverMsg) VALUES (?,?,?,?)",
+       [senderconv.sender,senderconv.recipient,senderconv.senderMsg,senderconv.receiverMsg],function(err,result){
+        if (err) throw err;
+        res.send(result);
+    })
 })
 
 // getting all the messages of a particular user
@@ -45,11 +56,15 @@ app.put('/messages/:id',(req,res) => {
 
 // delete the message
 app.delete('/messages/:id',(req,res) => {
-    const message=allMessages.find(m => m.id==req.params.id);
-    if(!message)res.status(404).send('not found');
-    const index=allMessages.indexOf(message);
-    allMessages.splice(index,1)
-    res.send(message);
+    // const message=allMessages.find(m => m.id==req.params.id);
+    // if(!message)res.status(404).send('not found');
+    // const index=allMessages.indexOf(message);
+    // allMessages.splice(index,1)
+    // res.send(message);
+    mysqlConnection.query("DELETE FROM chats where id=?",[req.params.id],function(err,result){
+        if(err) throw err;
+        res.send(result);
+    })
 })
 
 app.listen(port,() => {

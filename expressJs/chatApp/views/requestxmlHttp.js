@@ -3,6 +3,7 @@ export function requestFunction(method,conv,senderAddingToMessageBox,receiverAdd
     if(method=='post'){
        xhr.open(method, "/messages", true);
        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+       console.log('sends',JSON.stringify(conv));
        xhr.send(JSON.stringify(conv)); 
        loader.innerHTML=`<i class='fa fa-spinner fa-2x fa-spin'></i>`
        xhr.onload=function(){
