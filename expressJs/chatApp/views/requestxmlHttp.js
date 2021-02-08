@@ -1,4 +1,4 @@
-export function requestFunction(method,conv,senderAddingToMessageBox,receiverAddingToMessageBox,loader,callback){
+export function requestFunction(method,conv,senderAddingToMessageBox,receiverAddingToMessageBox,loader,u1,u2){
     let xhr = new XMLHttpRequest();
     if(method=='post'){
        xhr.open(method, "/messages", true);
@@ -33,7 +33,7 @@ export function requestFunction(method,conv,senderAddingToMessageBox,receiverAdd
        }  
     }
     else{
-       xhr.open('GET','http://localhost:3000/messages',true);
+       xhr.open('GET',`http://localhost:3000/messages/${u1}/${u2}`,true);
        xhr.send();
        loader.innerHTML=`<i class='fa fa-spinner fa-2x fa-spin'></i>`
        xhr.onload = function(){

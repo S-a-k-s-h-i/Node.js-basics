@@ -8,7 +8,7 @@ let user1 = document.getElementById("user1");
 let user2 = document.getElementById("user2");
 let delBox = document.getElementById("delete");
 let loader = document.getElementById('ld');
-let u1,u2,allMessages,idOfMessage = 0;
+let u1,u2,sender_messages,idOfMessage = 0;
 user1.addEventListener('change',() => {
    button1.disabled = false;button2.disabled=false;
    messages.innerHTML = '';
@@ -34,13 +34,13 @@ function conversation(senderMsg,receiverMsg,sender,recipient){
 button1.addEventListener('click',() => {
    if(textbox1 && textbox1.value){
       let senderconv = new conversation(textbox1.value,null,u1,u2);
-      requestFunction('post',senderconv,senderAddingToMessageBox,null,loader);
+      requestFunction('post',senderconv,senderAddingToMessageBox,null,loader,null,null);
      }
    })
 button2.addEventListener('click',() => {
    if(textbox2 && textbox2.value){
       let receiverconv = new conversation(null,textbox2.value,u2,u1);
-      requestFunction('post',receiverconv,null,receiverAddingToMessageBox,loader);
+      requestFunction('post',receiverconv,null,receiverAddingToMessageBox,loader,null,null);
       }
    }
    )
@@ -80,20 +80,17 @@ function receiverAddingToMessageBox(receiverconv){
 
 
 function deleteMessage(conv){
-   requestFunction('delete',conv,null,null,loader);
+   requestFunction('delete',conv,null,null,loader,null,null);
 }
 function history(){ 
-   requestFunction('get',conversation,senderAddingToMessageBox,receiverAddingToMessageBox,loader);
+   requestFunction('get',conversation,senderAddingToMessageBox,receiverAddingToMessageBox,loader,u1,u2);
    function conversation(res){
-      allMessages = JSON.parse(res);
-      let sender_messages = allMessages.filter(m=> (m.sender==u1 && m.recipient==u2) || (m.sender==u2 && m.recipient==u1));
+      sender_messages = JSON.parse(res);
       console.log("sender msg",sender_messages);
-      if(sender_messages){
          for(let d=0;d<sender_messages.length;d++){
             if(sender_messages[d].senderMsg!=null)senderAddingToMessageBox(sender_messages[d]);
             else receiverAddingToMessageBox(sender_messages[d]);
             }
-         } 
        }
 }
 window.addEventListener("load",function(){
