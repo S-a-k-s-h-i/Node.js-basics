@@ -3,5 +3,6 @@ module.exports = {
     Image: require("./Image"),
     Comment: require("./Comment"),
     Category: require("./Category"),
-    Tag:require("./Tag")
+    Tag:require("./Tag"),
+    Userinfo:require("./Userinfo")
   };

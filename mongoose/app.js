@@ -189,7 +189,7 @@ const run = async function() {
       console.log("\n>> tagB:\n", tag);
   };
 
-run()
+// run()
 // const getTutorialWithPopulate=async function(){
 //     const tutorials=await db.Tutorial.find().populate("comments");
 //     console.log(">All Identifiers ",tutorials);
@@ -214,20 +214,7 @@ run()
 // }
 // showAllIdentifiers();
 
-// const usersSchema=new mongoose.Schema({
-//     name:{
-//         type:String,
-//         required:true
-//     },
-//     age:Number,
-//     state:String,
-//     active:Boolean,
-//     registrationDate:{
-//         type:Date,
-//         default:Date.now
-//     }   
-// })
-// const Usersinfo=new mongoose.model("Usersinfo",usersSchema);
+
 
 // const user1=new Usersinfo({
 //     name:"sakshi",
@@ -265,8 +252,8 @@ run()
 // }
 // createDocument();
 
-// const getDocument= async() => {
-//     const result = await Usersinfo.find({state:"Sikkim"}).select({name:1});
-//     console.log(result);
-// }
-// getDocument();
+const getDocument= async() => {
+    const result = await Usersinfo.find({state:"Sikkim"}).select({name:1});
+    console.log(result);
+}
+getDocument();
