@@ -1,58 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sriracha&display=swap");
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-body {
+.main {
+  width: 100vw;
+  height: 100vh;
+  background: #2980b9;
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container {
+  width: 600px;
+  height: 100vh;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 .head {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  background-color: #4d80e4;
-}
-h1 {
+  width: 100%;
+  padding: 0.8rem 0;
+  background-color: #a82ffc;
+  color: white;
   text-align: center;
+  font-family: "Acme", sans-serif;
 }
-.container {
-  height: 100vh;
-  width: 600px;
-  margin: 0px auto;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  border: 1px solid #808080;
+.messagebody {
+  margin-top: 1em;
+  font-family: "Sriracha", cursive;
 }
 .users {
+  display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
 #dropdown-user1 {
   float: left;
-  margin: 20px;
+  margin-right: 30px;
+  display: flex;
+  flex-direction: column;
 }
 #dropdown-user2 {
   float: right;
-  margin: 20px;
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+}
+#button1,
+#button2 {
+  border: none;
+  width: 50px;
+  background-color: #d189ff;
+  color: white;
+  font-family: "Sriracha", cursive;
+  cursor: pointer;
+  border-radius: 0.2em;
+  box-shadow: 2px 3px 3px #e9ecef;
 }
 #textbox1,
 #textbox2 {
-  margin-top: 20px;
-  font-size: 15px;
+  margin: -1em 0 0.5em 0;
+  padding: 0.3em 0;
+  border: 1px solid black;
+  font-family: "Padauk", sans-serif;
+  font-size: 1em;
+  border-radius: 0.2em;
+}
+#user1,
+#user2 {
+  font-size: 1em;
+  font-family: "Sriracha", cursive;
+  cursor: pointer;
 }
 #messages {
-  margin-top: 200px;
   height: 500px;
   width: 500px;
   margin: 0px auto;
-  padding-top: 50px;
 }
 .msg1 {
-  background-color: #bfbfbf;
+  background-color: #7984ee;
 }
 .msg1,
 .msg2 {
-  height: 25px;
+  height: 35px;
   width: 400px;
   font-size: 20px;
   border: 1px solid grey;
@@ -62,24 +96,32 @@ h1 {
 }
 .msg2 {
   margin-left: 60px;
-  background-color: lightblue;
+  background-color: #46b3e6;
   color: white;
+}
+
+#edit {
+  margin-left: auto;
+  margin-right: 1em;
+  height: 30px;
+}
+#ld {
+  margin: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
 }
 .sender {
   float: right;
   font-size: 15px;
   padding: 2px;
+  color: #cdd0cb;
+}
+
+#button1:disabled,
+#button2:disabled {
+  border: 1px solid #999999;
+  background-color: #cccccc;
   color: #666666;
-}
-#edit {
-  padding-left: 100px;
-  float: right;
-  display: flex;
-  justify-content: space-between;
-}
-#ld {
-  float: left;
-}
-#delete {
-  float: right;
 }

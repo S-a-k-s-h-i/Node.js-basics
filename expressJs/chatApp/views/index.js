@@ -55,7 +55,9 @@ function senderAddingToMessageBox(senderconv){
    user1Message.appendChild(span);
    user1Message.onmouseover = function(){
       delBox.innerHTML = `<i class='fa fa-trash-o fa-2x' id='deleteMe'></i>`
-      document.getElementById ('deleteMe').addEventListener ("click",deleteMessage(senderconv.id), false);
+      document.getElementById ('deleteMe').addEventListener ("click",function(){
+         deleteMessage(senderconv.id);
+      }, false);
    }
    messages.appendChild(user1Message);
    textbox1.value='';
@@ -72,16 +74,17 @@ function receiverAddingToMessageBox(receiverconv){
    user2Message.onmouseover = function(){
       // delBox.innerHTML = `<i class='fa fa-trash-o fa-2x' onclick='deleteMessage(${JSON.stringify(receiverconv.id)})'></i>`;
       delBox.innerHTML = `<i class='fa fa-trash-o fa-2x' id='deleteMe'></i>`
-      document.getElementById ('deleteMe').addEventListener ("click",deleteMessage(receiverconv.id), false);
+      document.getElementById ('deleteMe').addEventListener ("click",function(){
+         deleteMessage(receiverconv.id)
+      }, false);
+      console.log(delBox.innerHTML);
    }
    messages.appendChild(user2Message);  
    textbox2.value='';
 }
 
 
-function deleteMessage(conv){
-   requestFunction('delete',conv,null,null,loader,null,null);
-}
+
 function history(){ 
    requestFunction('get',conversation,senderAddingToMessageBox,receiverAddingToMessageBox,loader,u1,u2);
    function conversation(res){
@@ -93,6 +96,11 @@ function history(){
             }
        }
 }
+
+function deleteMessage(conv){
+   requestFunction('delete',conv,null,null,loader,null,null);
+}
+
 window.addEventListener("load",function(){
    u1 = "bulbul";
    u2 = "bulbul";
