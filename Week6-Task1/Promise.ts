@@ -1,4 +1,5 @@
 export {}
+const fetch = require("node-fetch");
 // const Promise1=new Promise((resolve,reject) => {
 //     resolve('video 1');
 // })
@@ -29,7 +30,7 @@ function asynTimeOut(delay){
         setTimeout(function(){
             resolve(delay)
         },delay)
-    })).then(d => `Waited ${d} seconds.`);
+    })) .then(d => `Waited ${d} seconds.`);
 }
 
 function asynFetch(url){
@@ -40,14 +41,41 @@ function asynFetch(url){
 
 const asyncArray=[
     {task:"wait",duration:2000},
-    {task:"fetch",url:"https://www.google.com/"},
-    {task:"wait",duration:2000}
+    {task:"fetch",url:'http://numbersapi.com/random'},
+    {task:"wait",duration:4000}
+    
 ];
 
 function runTask(spec){
     return (spec.task==='wait')?asynTimeOut(spec.duration):asynFetch(spec.url);
 }
 
-const task=asyncArray.map(runTask);
-const results=await Promise.all(task);
-results.forEach(x => console.log(x));
+
+// PARALLEL
+// (async function(){
+    
+//     const task=asyncArray.map(runTask);
+//     console.log('task...',task);
+//     const results=await Promise.all(task);
+//     console.log(results);
+//     for(const result of results)
+//     console.log(result)
+
+// })();
+
+
+// SERIES
+(async function() {
+    const log = result => console.log(result);
+    await asyncArray.reduce(
+    (p, spec) => p.then(() => runTask(spec).then(log)),
+    Promise.resolve(null)
+);
+
+    //  FOR LOOP
+    // const task=asyncArray.map(runTask);
+    // console.log(task)
+    // for (const fn of task) {
+    //     console.log(await fn)
+    // }
+})();
