@@ -1,11 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Query, UseFilters } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task, TaskStatus } from './task.model';
 import { title } from 'process';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Stats } from 'fs';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { HttpExceptionFilter } from '../filters/http-exception.filter';
+
+
 @Controller('tasks')
+// @UseFilters(HttpExceptionFilter)
 export class TasksController {
     constructor(private tasksService:TasksService){}
 
@@ -18,8 +22,14 @@ export class TasksController {
     }
 
     @Get('/:id')
+    // @UseFilters(HttpExceptionFilter)    
     getTaskById(@Param('id') id:string):Task{
-       return this.tasksService.getTaskById(id);
+       let result= this.tasksService.getTaskById(id)
+       if(result){
+         return result;
+       }else{
+         throw new HttpException('Task not found',HttpStatus.NOT_FOUND);
+       }
     }
     
     @Get('findByFilter')
