@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, Patch, Post, Query, UseFilters } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseFilters, UsePipes } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task, TaskStatus } from './task.model';
 import { title } from 'process';
@@ -6,6 +6,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { Stats } from 'fs';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { HttpExceptionFilter } from '../filters/http-exception.filter';
+import { ValidationPipe } from '../pipes/validation.pipe';
 
 
 @Controller('tasks')
@@ -22,9 +23,11 @@ export class TasksController {
     }
 
     @Get('/:id')
-    // @UseFilters(HttpExceptionFilter)    
+    // @UseFilters(HttpExceptionFilter)   
+    @UsePipes() 
     getTaskById(@Param('id') id:string):Task{
        let result= this.tasksService.getTaskById(id)
+       console.log("result",result)
        if(result){
          return result;
        }else{
@@ -38,6 +41,7 @@ export class TasksController {
     } 
 
     @Post()
+    // @UsePipes(ValidationPipe)
     // createTask(@Body()body){
     //    console.log('body..',body);
     // }
