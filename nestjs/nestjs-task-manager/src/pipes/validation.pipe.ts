@@ -1,23 +1,23 @@
-import { validate } from 'class-validator';
-import { plainToClass } from 'class-transformer';
-import { Injectable, PipeTransform, ArgumentMetadata, BadRequestException } from '@nestjs/common';
+import { ExceptionFilter, ArgumentsHost, Catch } from '@nestjs/common';
+import { Request, Response } from 'express';
+import { ValidationException } from 'src/filters/validation-exception.filter';
 
-@Injectable()
-export class ValidationPipe implements PipeTransform<any> {
-  async transform(value: any, { metatype }: ArgumentMetadata) {
-    if (!metatype || !this.toValidate(metatype)) {
-      return value;
-    }
-    const object = plainToClass(metatype, value);
-    const errors = await validate(object);
-    if (errors.length > 0) {
-      throw new BadRequestException('Validation failed');
-    }
-    return value;
-  }
-
-  private toValidate(metatype: any): boolean {
-    const types: Function[] = [String, Boolean, Number, Array, Object];
-    return !types.includes(metatype);
-  }
+@Catch(ValidationException)
+export class ValidationFilter implements ExceptionFilter{
+  catch(exception: ValidationException, host: ArgumentsHost) {
+        const ctx = host.switchToHttp();
+        const response = ctx.getResponse<Response>();
+        const request = ctx.getRequest<Request>();
+        const status = exception.getStatus();
+    
+        response
+          .status(status)
+          .json({
+            statusCode: status,
+            timestamp: new Date().toISOString(),
+            path: request.url,
+            description:'Bad Request',
+            validationErrors:exception.validationErrors
+          });
+      }
 }

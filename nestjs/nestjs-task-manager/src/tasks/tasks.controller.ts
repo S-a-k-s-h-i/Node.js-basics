@@ -6,7 +6,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { Stats } from 'fs';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { HttpExceptionFilter } from '../filters/http-exception.filter';
-import { ValidationPipe } from '../pipes/validation.pipe';
+// import { ValidationPipe } from '../pipes/validation.pipe';
 
 
 @Controller('tasks')
@@ -50,6 +50,7 @@ export class TasksController {
         // @Body('description') description:string
        @Body() createTaskDto:CreateTaskDto
     ):Task{
+      console.log(createTaskDto)
       return this.tasksService.createTask(createTaskDto);
     }
 
