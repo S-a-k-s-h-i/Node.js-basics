@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseFilters, UsePipes } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task, TaskStatus } from './task.model';
 import { title } from 'process';
@@ -41,7 +41,7 @@ export class TasksController {
     } 
 
     @Post()
-    // @UsePipes(ValidationPipe)
+    @UsePipes(ValidationPipe)
     // createTask(@Body()body){
     //    console.log('body..',body);
     // }

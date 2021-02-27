@@ -18,6 +18,7 @@ async function bootstrap() {
         ${Object.values(errors.constraints).join(', ')}`
 
       )
+      console.log(messages);
       return new ValidationException(messages);
     }
   }));

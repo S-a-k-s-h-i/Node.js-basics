@@ -4,7 +4,7 @@ export class CreateTaskDto{
     @IsString()
     @IsNotEmpty()
     @MinLength(10, {
-        message:'Title is too short. Minimum length is $constraint1 characters, but actual is $value', })
+        message:'Title is too short. Minimum length is $constraint1 characters, but actual is $value1', })
     @MaxLength(50, {
         // here, $constraint1 will be replaced with "50", and $value with actual supplied value
         message: 'Title is too long. Maximal length is $constraint1 characters, but actual is $value',
