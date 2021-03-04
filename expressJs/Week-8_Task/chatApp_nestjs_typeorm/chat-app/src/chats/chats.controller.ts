@@ -9,8 +9,11 @@ export class ChatsController {
 
     @Get()
     @Render('index')
+    root(){
+        
+    }
 
-    @Get('/allChats')
+    @Get('allChats')
     findAll(){
         return this.chatsService.getChats();
     }
