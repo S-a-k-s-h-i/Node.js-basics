@@ -10,8 +10,8 @@ export class AuthService {
         @InjectRepository(User) private userRepository:Repository<User>
     ){ console.log('USER REPO ',userRepository);}
 
-    async createUser(user:any):Promise<User>{
-        return this.userRepository.save(user);
+    async createUser(createUserDto:any):Promise<User>{
+        return this.userRepository.save(createUserDto);
     }
 
     async getUser(data:any):Promise<User>{

@@ -42,3 +42,32 @@ export function requestFunction(method,conv,senderAddingToMessageBox,receiverAdd
       }
     }
 };
+
+export function authFunction(method,userdata,serverError){
+       let xhr = new XMLHttpRequest();
+       if(method=='post'){
+          xhr.open(method, "http://localhost:3000/auth/register", true);
+          xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+          function replacer(key, value) {
+              // Changing phone no type to Number
+               if(key =='phone'){
+                   if (typeof value === 'string') {
+                         value=Number(value);
+                         console.log('value',value);
+                      }
+               }
+               return value
+            }
+          xhr.send(JSON.stringify(userdata,replacer)); 
+          xhr.onload=function(){
+                 console.log(xhr.responseText);
+                 if(xhr.status==201){
+                    serverError.innerHTML='Registration Successfull';
+                    serverError.className='successful';
+
+                 }else{
+                     serverError.innerHTML=JSON.parse(xhr.responseText).message;
+                     serverError.className='unsuccessful';
+                 }
+          }
+}}

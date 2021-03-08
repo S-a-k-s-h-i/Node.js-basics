@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registration</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="../css/registration.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>Registration Form</h2>
+    </div>
+    <form action="" class="form" id="form">
+      <small id='serverError'></small>
+      <div class="form-control">
+        <label for="user">Username</label>
+        <input type="text" name="" id="username" placeholder="Enter your name" autocomplete="off" />
+        <small>Error Msg</small>
+      </div>
+      <div class="form-control">
+        <label for="user">Email</label>
+        <input type="email" name="" id="email" placeholder="Enter your email" autocomplete="off" />
+        <small>Error Msg</small>
+      </div>
+      <div class="form-control">
+        <label for="user">Phone No</label>
+        <input type="number" name="" id="phoneno" placeholder="Enter your Phone no." autocomplete="off" />
+        <small>Error Msg</small>
+      </div>
+      <div class="form-control">
+        <label for="user">Password</label>
+        <input type="password" name="" id="password" placeholder="Enter your Password" autocomplete="off" />
+        <small>Error Msg</small>
+      </div>
+      <div class="form-control">
+        <label for="user">Confirm Password</label>
+        <input type="password" name="" id="cpassword" placeholder="Confirm Password" autocomplete="off" />
+        <small>Error Msg</small>
+      </div>
+      <input type="submit" value="Submit" class="btn" />
+    </form>
+  </div>
+
+  <script type="module" src="../js/reg.js"></script>
+</body>
+
+</html>

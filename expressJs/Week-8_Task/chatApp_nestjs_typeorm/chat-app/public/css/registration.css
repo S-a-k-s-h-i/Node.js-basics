@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --font: 'Acme', sans-serif;
+  --color: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);
+  --headcolor: linear-gradient(to right, #1c92d2, #f2fcfe);
+}
+
+body {
+  background: var(--color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  font-family: var(--font);
+}
+.container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px 6px #5aadff;
+  overflow: hidden;
+  width: calc(100vw - 65vw);
+  max-width: 100%;
+}
+
+.header {
+  background: var(--headcolor);
+  padding: 20px 0;
+}
+.header h2 {
+  text-transform: uppercase;
+  font-size: 25px;
+  color: #222222;
+  text-align: center;
+}
+.form {
+  padding: 20px;
+}
+.form-control {
+  margin-bottom: 15px;
+  position: relative;
+}
+.form-control label {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+.form-control input {
+  width: 100%;
+  border: 2px solid #f0f0f0;
+  font-size: 14px;
+  padding: 8px;
+  display: block;
+}
+.form-control input:focus {
+  outline: 0;
+  border-color: #777;
+}
+.form-control.success input {
+  border-color: #2ecc72;
+}
+.form-control.error input {
+  border-color: #e74c3e;
+}
+.form-control.error small {
+  visibility: visible;
+  color: #e74c3e;
+}
+
+.form-control small {
+  visibility: hidden;
+}
+
+.form .btn {
+  background: var(--headcolor);
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  font-size: 18px;
+  display: block;
+  text-transform: uppercase;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: all 1s ease;
+}
+.form .btn:hover {
+  background: linear-gradient(to right, #f2fcfe, #1c92d2);
+}
+
+.successful {
+  color: #2ecc72;
+  font-weight: bold;
+}
+.unsuccessful {
+  color: #e74c3e;
+  font-weight: bold;
+}
+
+@media (max-width: 998px) {
+  .container {
+    width: calc(100vw - 15vw);
+    max-width: 100%;
+  }
+}

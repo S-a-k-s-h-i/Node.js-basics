@@ -1,8 +1,10 @@
-import { BadRequestException, Body, Controller, Get, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Render, Req, Res, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
 import { Response,Request} from 'express';
+import { CreateUserDto } from './dto/create-user.dto';
+import { ValidationError } from 'class-validator';
 
 @Controller('auth')
 export class AuthController {
@@ -11,25 +13,33 @@ export class AuthController {
          private jwtService: JwtService
          ){}
 
+     @Get()
+     @Render('registration')
+     root(){
+           return 
+        }
+
      @Post('register')
      async register(
-         @Body('name') name:string,
-         @Body('email') email:string,
-         @Body('phone') phone:number,
-         @Body('password') password:string
+        @Body() createUserDto:CreateUserDto,
+        @Req() request:Request
      ){
-       const hashpassword=await bcrypt.hash(password,12);
+       try{
+        const {password} =createUserDto;
+        const hashpassword=await bcrypt.hash(password,12);
+        createUserDto.password=hashpassword;
+        const user=await this.userService.createUser(createUserDto)
+        //Removing password property
+        delete user.password
+       
+        return user;
+       }catch(err){
+        if (err.code === 'ER_DUP_ENTRY') {
+            //handleHttpErrors(SYSTEM_ERRORS.USER_ALREADY_EXISTS);
+            throw new BadRequestException('User already exist with this email');
 
-       const user=await this.userService.createUser({
-           name,
-           email,
-           phone,
-           password:hashpassword
-       })
-       //Removing password property
-       delete user.password
-
-       return user;
+        }
+       }
      }
 
      @Post('login')
