@@ -6,7 +6,7 @@ import { ChatsModule } from './chats/chats.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [ChatsModule,TypeOrmModule.forRoot(), AuthModule],
+  imports: [ChatsModule,TypeOrmModule.forRoot(),AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -45,29 +45,62 @@ export function requestFunction(method,conv,senderAddingToMessageBox,receiverAdd
 
 export function authFunction(method,userdata,serverError){
        let xhr = new XMLHttpRequest();
+       console.log('user data',userdata);
        if(method=='post'){
-          xhr.open(method, "http://localhost:3000/auth/register", true);
-          xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-          function replacer(key, value) {
-              // Changing phone no type to Number
-               if(key =='phone'){
-                   if (typeof value === 'string') {
-                         value=Number(value);
-                         console.log('value',value);
-                      }
-               }
-               return value
-            }
-          xhr.send(JSON.stringify(userdata,replacer)); 
-          xhr.onload=function(){
-                 console.log(xhr.responseText);
-                 if(xhr.status==201){
-                    serverError.innerHTML='Registration Successfull';
-                    serverError.className='successful';
+        if(Object.keys(userdata).length===2){
+            console.log('login.....'+userdata);
+             xhr.open(method,"http://localhost:3000/auth/login",true);
+             xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+             xhr.send(JSON.stringify(userdata)); 
+              xhr.onload=function(){
+                     console.log(xhr.responseText);
+                     if(xhr.status==201){
+                        serverError.innerHTML='Login Successfull <a href="/chats">Chats</a>';
+                        serverError.className='serverError successful';
+    
+                     }else{
+                         serverError.innerHTML=JSON.parse(xhr.responseText).message+' Register Yourself <a href="/auth">Register</a>';
+                         serverError.className='unsuccessful';
+                         let formCon =document.getElementsByClassName('form-control');
+                         for(let i=0;i<formCon.length;i++){
+                             if(formCon[i].className === 'form-control success'){
+                                  formCon[i].className='form-control unsuccess';
+                             }
+                         }
+                     }
+              }
 
-                 }else{
-                     serverError.innerHTML=JSON.parse(xhr.responseText).message;
-                     serverError.className='unsuccessful';
-                 }
-          }
+        }else{
+              console.log('register.....'+userdata);
+              xhr.open(method, "http://localhost:3000/auth/register", true);
+              xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+              function replacer(key, value) {
+                  // Changing phone no type to Number
+                   if(key =='phone'){
+                       if (typeof value === 'string') {
+                             value=Number(value);
+                             console.log('value',value);
+                          }
+                   }
+                   return value
+                }
+              xhr.send(JSON.stringify(userdata,replacer)); 
+              xhr.onload=function(){
+                     console.log(xhr.responseText);
+                     if(xhr.status==201){
+                        serverError.innerHTML='Registration Successfull <a href="/login">Click to Login</a>';
+                        serverError.className='serverError successful';
+    
+                     }else{
+                         serverError.innerHTML=JSON.parse(xhr.responseText).message;
+                         serverError.className='unsuccessful';
+                         let formCon =document.getElementsByClassName('form-control');
+                         for(let i=0;i<formCon.length;i++){
+                             if(formCon[i].className === 'form-control success'){
+                                  formCon[i].className='form-control unsuccess';
+                             }
+                         }
+                     }
+              }
+        }
 }}

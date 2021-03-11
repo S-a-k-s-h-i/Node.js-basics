@@ -15,7 +15,7 @@
       <h2>Registration Form</h2>
     </div>
     <form action="" class="form" id="form">
-      <small id='serverError'></small>
+      <small id='serverError' class='serverError'></small>
       <div class="form-control">
         <label for="user">Username</label>
         <input type="text" name="" id="username" placeholder="Enter your name" autocomplete="off" />
@@ -43,6 +43,7 @@
       </div>
       <input type="submit" value="Submit" class="btn" />
     </form>
+    <small>Already have an account <a href="/auth/login">LOGIN</a></small>
   </div>
 
   <script type="module" src="../js/reg.js"></script>

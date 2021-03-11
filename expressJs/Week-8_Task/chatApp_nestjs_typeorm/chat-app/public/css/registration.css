@@ -95,11 +95,16 @@ body {
   color: #2ecc72;
   font-weight: bold;
 }
+
 .unsuccessful {
   color: #e74c3e;
   font-weight: bold;
 }
+.form-control.unsuccess input {
+  border-color: #e74c3e;
+}
 
+/* media query */
 @media (max-width: 998px) {
   .container {
     width: calc(100vw - 15vw);

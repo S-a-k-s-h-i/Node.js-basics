@@ -27,29 +27,25 @@
                     <div id="dropdown-user1">
                         <label for="cars">Sender:</label>
                         <select name="user1" id="user1">
-                            <option value="bulbul">bulbul</option>
-                            <option value="peacock">peacock</option>
-                            <option value="Sparrow">Sparrow</option>
-                            <option value="Crow">Crow</option>
-                            <option value="Pigeon">Pigeon</option>
+                            <option value={{sender}}>{{sender}}</option>
                         </select>
                         <br />
                         <input id="textbox1" type="text" />
                         <button id="button1">Send</button>
                     </div>
+                    {{#if allUsers}}
                     <div id="dropdown-user2">
                         <label for="cars">Recipient:</label>
                         <select name="user2" id="user2">
-                            <option value="bulbul">bulbul</option>
-                            <option value="peacock">peacock</option>
-                            <option value="Sparrow">Sparrow</option>
-                            <option value="Crow">Crow</option>
-                            <option value="Pigeon">Pigeon</option>
+                            {{#each allUsers}}
+                            <option value={{name}}>{{name}}</option>
+                            {{/each}}
                         </select>
                         <br />
                         <input id="textbox2" type="text" />
                         <button id="button2">Send</button>
                     </div>
+                    {{/if}}
                 </div>
                 <div id="ld">
                 </div>

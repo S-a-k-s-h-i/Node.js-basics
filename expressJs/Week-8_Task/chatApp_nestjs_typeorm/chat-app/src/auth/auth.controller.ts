@@ -1,10 +1,11 @@
-import { BadRequestException, Body, Controller, Get, Post, Render, Req, Res, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Post, Render, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
 import { Response,Request} from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
-import { ValidationError } from 'class-validator';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { use } from 'passport';
 
 @Controller('auth')
 export class AuthController {
@@ -16,8 +17,13 @@ export class AuthController {
      @Get()
      @Render('registration')
      root(){
-           return 
         }
+
+     @Get('login')
+     @Render('login')
+     loginPage(){
+
+     }
 
      @Post('register')
      async register(
@@ -66,27 +72,31 @@ export class AuthController {
              message:'success'
          }
      }
-    
+     
+     @UseGuards(JwtAuthGuard)
      @Get('user')
-     async user(@Req() request:Request){
-        try{
-            const cookie=request.cookies['jwt'];
-
-            const data=await this.jwtService.verify(cookie);
-
-            if(!data){
-                throw new UnauthorizedException();
-            }
-            const user=await this.userService.getUser({id:data['sub']});
-            
-            //Strip password property
-            const {password,...result}=user
+     getProfile(@Req() req) {
+        return req.user;
+      }
+    //  async user(@Req() request:Request){
+    //     try{
+    //         const cookie=request.cookies['jwt'];
+    //         console.log(request.cookies)
+    //         const data=await this.jwtService.verify(cookie);
+    //         console.log(data);
+    //         if(!data){
+    //             throw new UnauthorizedException();
+    //         }
+    //         const user=await this.userService.getUser({id:data['sub']});
+    //         console.log('user',user)
+    //         //Strip password property
+    //         const {password,...result}=user
    
-            return result
-        }catch(e){
-            throw new UnauthorizedException();
-        }
-     }
+    //         return result
+    //     }catch(e){
+    //         throw new UnauthorizedException();
+    //     }
+    //  }
 
      @Post('logout')
      async logout(@Res({passthrough:true}) response:Response){

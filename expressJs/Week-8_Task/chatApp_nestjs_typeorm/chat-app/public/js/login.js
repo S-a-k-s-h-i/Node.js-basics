@@ -1,3 +1,4 @@
+import { authFunction } from './requestxmlHttp.js';
 const form = document.getElementById('form');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
@@ -28,26 +29,23 @@ const formControl = input.parentElement;
 formControl.className='form-control success';
 }
 
-const sendData = (usernameValue,srate,count) => {
+const sendData = (userdata,srate,count) => {
 if(srate === count){
- alert(`Registration successfull. Welcome ${usernameValue}`);
+    authFunction('post',userdata,serverError);
 }
 }
 
-const successMsg = (usernameValue) => {
-console.log('success msg');
-let formCon =document.getElementsByClassName('form-control');
-let count = formCon.length - 1;
-for(let i=0;i<formCon.length;i++){
-if(formCon[i].className === 'form-control success'){
-    console.log('inside for');
-    var srate = 0 + i;
-    console.log(srate);
-    sendData(usernameValue,srate,count);
-}else{
-    return false;
-}
-}
+const successMsg = (userdata) => {
+    let formCon =document.getElementsByClassName('form-control');
+    let count = formCon.length - 1;
+    for(let i=0;i<formCon.length;i++){
+        if(formCon[i].className === 'form-control success'){
+            var srate = 0 + i;
+            sendData(userdata,srate,count);
+        }else{
+            return false;
+        }
+    }
 }
 
 const validate = () => {
@@ -70,4 +68,11 @@ else if(passwordValue.length < 6)
 setErrorMsg(password,'minimum 6 characters');
 else
 setSuccessMsg(password);
+
+const userdata={	
+    email:emailValue,
+    password:passwordValue
+  }
+  //Success
+  successMsg(userdata);
 }
