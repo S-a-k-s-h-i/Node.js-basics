@@ -18,8 +18,7 @@ export class ChatsController {
     @Render('index')
     async root(@Req() req:Request){
         var allusers=await (await this.authService.getAllUser()).filter((result) => result.name!==(req.user['username']));
-        console.log(allusers);
-        return {sender:req.user['username'],allUsers:allusers}
+        return {sendername:req.user['username'],senderId:req.user['userId'],allUsers:allusers}
     }
     
     @Get('allChats')
@@ -28,8 +27,8 @@ export class ChatsController {
     }
 
     @Post()
-    create(@Body() chats:Chats){
-        console.log(chats);
+    async create(@Body() chats:Chats){
+        console.log('chats',chats);
         return this.chatsService.createChats(chats);
     }
 
@@ -40,6 +39,7 @@ export class ChatsController {
 
     @Get('/:sender/:recipient')
     ChatofSenderRecipient(@Param('sender') sender:string,@Param('recipient') recipient:string){
+        console.log(this.chatsService.chatsBetween(sender,recipient));
        return this.chatsService.chatsBetween(sender,recipient);
     }
 }

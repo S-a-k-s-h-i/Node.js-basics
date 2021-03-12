@@ -1,15 +1,16 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { User } from "src/auth/entity/User.entity";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Chats{
     @PrimaryGeneratedColumn("uuid")
     id:string;
 
-    @Column({type:"varchar",length:80})
-    sender:string;
+    @ManyToOne(type => User,user => user.chats)
+    sender: User;
 
-    @Column({type:"varchar",length:80})
-    recipient:string;
+    @ManyToOne(type => User,user => user.chats)
+    recipient: User;
 
     @Column({type:"text",nullable:true})
     senderMsg:string;
@@ -19,4 +20,9 @@ export class Chats{
 
     @CreateDateColumn()
     date:number;
+    
+    
+
+    
+
 }

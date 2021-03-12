@@ -9,7 +9,7 @@ export class AuthService {
 
     constructor(
         @InjectRepository(User) private userRepository:Repository<User>
-    ){ console.log('USER REPO ',userRepository);}
+    ){}
 
     async createUser(createUserDto:any):Promise<User>{
         return this.userRepository.save(createUserDto);
@@ -20,7 +20,7 @@ export class AuthService {
     }
 
     async getAllUser():Promise<User[]>{
-        return await this.userRepository.find({select:["name"]})
+        return await this.userRepository.find({select:["name","id"]})
     }
     
 }

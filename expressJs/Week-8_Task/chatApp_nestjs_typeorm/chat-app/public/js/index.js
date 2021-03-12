@@ -9,27 +9,25 @@ let user2 = document.getElementById("user2");
 let delBox = document.getElementById("delete");
 let loader = document.getElementById('ld');
 let u1,u2,sender_messages,idOfMessage = 0;
-user1.addEventListener('change',() => {
-   button1.disabled = false;button2.disabled=false;
+u1={ id:user1.value, value:user1.options[0].text };
+u2={ id:user2.value, value:user2.options[0].text };
+console.log('u1',u1);
+console.log('u2',u2);
+
+user2.addEventListener('change',(sel) => {
+   u2.id=user2.options[user2.selectedIndex].value;
+   u2.value=user2.options[user2.selectedIndex].text;
    messages.innerHTML = '';
-   u1 = user1.value;
+   console.log('on change u2',u2);
    history();
-   if(u1==u2){button1.disabled=true;button2.disabled=true;};
 })
-user2.addEventListener('change',() => {
-   button2.disabled = false;button1.disabled = false;
-   messages.innerHTML = '';
-   u2 = user2.value;
-   history();
-   if(u1==u2){button2.disabled = true;button1.disabled = true;};
-})
+
+
 function conversation(senderMsg,receiverMsg,sender,recipient){
-//    this.id = idOfMessage+1;
    this.senderMsg = senderMsg;
    this.receiverMsg = receiverMsg;
    this.sender = sender;
    this.recipient = recipient;
-//    idOfMessage++;
 };
 button1.addEventListener('click',() => {
    if(textbox1 && textbox1.value){
@@ -72,12 +70,10 @@ function receiverAddingToMessageBox(receiverconv){
    span.appendChild(receiver);
    user2Message.appendChild(span);
    user2Message.onmouseover = function(){
-      // delBox.innerHTML = `<i class='fa fa-trash-o fa-2x' onclick='deleteMessage(${JSON.stringify(receiverconv.id)})'></i>`;
       delBox.innerHTML = `<i class='fa fa-trash-o fa-2x' id='deleteMe'></i>`
       document.getElementById ('deleteMe').addEventListener ("click",function(){
          deleteMessage(receiverconv.id)
       }, false);
-      console.log(delBox.innerHTML);
    }
    messages.appendChild(user2Message);  
    textbox2.value='';
@@ -86,7 +82,7 @@ function receiverAddingToMessageBox(receiverconv){
 
 
 function history(){ 
-   requestFunction('get',conversation,senderAddingToMessageBox,receiverAddingToMessageBox,loader,u1,u2);
+   requestFunction('get',conversation,senderAddingToMessageBox,receiverAddingToMessageBox,loader,u1.id,u2.id);
    function conversation(res){
       sender_messages = JSON.parse(res);
       console.log("sender msg",sender_messages);
@@ -101,12 +97,6 @@ function deleteMessage(conv){
    requestFunction('delete',conv,null,null,loader,null,null);
 }
 
-window.addEventListener("load",function(){
-   u1 = "bulbul";
-   u2 = "bulbul";
-   button1.disabled = true;
-   button2.disabled = true;
-});
 
 
 

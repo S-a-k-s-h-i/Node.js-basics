@@ -1,4 +1,3 @@
-
 import { Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
@@ -8,9 +7,7 @@ var cookieExtractor = function(req) {
       var token;
       if (req && req.cookies){
         token = req.cookies['jwt'];
-        
       } 
-      console.log('token',token);
       if(!token){
         throw new UnauthorizedException();
         } 

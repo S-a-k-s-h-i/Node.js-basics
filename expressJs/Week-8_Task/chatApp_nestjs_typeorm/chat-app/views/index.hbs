@@ -27,7 +27,7 @@
                     <div id="dropdown-user1">
                         <label for="cars">Sender:</label>
                         <select name="user1" id="user1">
-                            <option value={{sender}}>{{sender}}</option>
+                            <option value={{senderId}}>{{sendername}}</option>
                         </select>
                         <br />
                         <input id="textbox1" type="text" />
@@ -38,7 +38,7 @@
                         <label for="cars">Recipient:</label>
                         <select name="user2" id="user2">
                             {{#each allUsers}}
-                            <option value={{name}}>{{name}}</option>
+                            <option value={{id}}>{{name}}</option>
                             {{/each}}
                         </select>
                         <br />

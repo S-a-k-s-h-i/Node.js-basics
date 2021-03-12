@@ -1,20 +1,26 @@
 export function requestFunction(method,conv,senderAddingToMessageBox,receiverAddingToMessageBox,loader,u1,u2){
     let xhr = new XMLHttpRequest();
     if(method=='post'){
-       xhr.open(method, "http://localhost:3000/chats", true);
-       xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-       console.log('sends',JSON.stringify(conv));
-       xhr.send(JSON.stringify(conv)); 
-       loader.innerHTML=`<i class='fa fa-spinner fa-2x fa-spin'></i>`
-       xhr.onload=function(){
-              if(xhr.status==201){
-                  loader.innerHTML='';
-                  if(senderAddingToMessageBox!=null)senderAddingToMessageBox(conv);
-                  else receiverAddingToMessageBox(conv);
-              }else{
-                     console.log('Error: '+xhr.status);
-              }
-       }
+        xhr.open(method, "http://localhost:3000/chats", true);
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        let senderName=conv.sender.value;
+        let recipientName=conv.recipient.value;
+        conv.sender=conv.sender.id;
+        conv.recipient=conv.recipient.id;
+        console.log('sends',JSON.stringify(conv));
+        xhr.send(JSON.stringify(conv)); 
+        loader.innerHTML=`<i class='fa fa-spinner fa-2x fa-spin'></i>`
+        xhr.onload=function(){
+               if(xhr.status==201){
+                   loader.innerHTML='';
+                   conv.sender=senderName;
+                   conv.recipient=recipientName;
+                   if(senderAddingToMessageBox!=null)senderAddingToMessageBox(conv);
+                   else receiverAddingToMessageBox(conv);
+               }else{
+                      console.log('Error: '+xhr.status);
+               }
+        }
     }
     else if(method=='delete'){
        console.log(typeof(conv));
@@ -33,6 +39,8 @@ export function requestFunction(method,conv,senderAddingToMessageBox,receiverAdd
        }  
     }
     else{
+       console.log('u1',u1);
+       console.log('u2',u2);
        xhr.open('GET',`http://localhost:3000/chats/${u1}/${u2}`,true);
        xhr.send();
        loader.innerHTML=`<i class='fa fa-spinner fa-2x fa-spin'></i>`
