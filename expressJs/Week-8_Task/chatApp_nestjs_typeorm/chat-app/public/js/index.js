@@ -1,4 +1,4 @@
-import { requestFunction } from './requestxmlHttp.js';
+import { requestFunction,logout } from './requestxmlHttp.js';
 let messages = document.getElementById("messages");
 let textbox1 = document.getElementById("textbox1");
 let textbox2 = document.getElementById("textbox2");
@@ -8,7 +8,13 @@ let user1 = document.getElementById("user1");
 let user2 = document.getElementById("user2");
 let delBox = document.getElementById("delete");
 let loader = document.getElementById('ld');
+let log=document.getElementById('logout');
 let u1,u2,sender_messages,idOfMessage = 0;
+
+log.addEventListener('click',() => {
+    logout();
+    alert('logout successfully')
+})
 u1={ id:user1.value, value:user1.options[0].text };
 u2={ id:user2.value, value:user2.options[0].text };
 console.log('u1',u1);

@@ -26,15 +26,8 @@ export class ChatsService {
         console.log('sender',sender);
         console.log('receiver',recipient);
 
-        const cc = await this.chatsRepository.createQueryBuilder("chats")
-       .getMany();
-       console.log("CC",cc)
-
-
         console.log('chats between',await this.chatsRepository.createQueryBuilder("chats")
-        .leftJoinAndSelect("["chats.sender","chats.recipient"]","user")
-        .where("chats.sender=:sender",{sender:sender})
-        .where("chats.recipient=:recipient",{recipient:recipient})
+        .leftJoinAndSelect("chats.sender","user")
         .where("chats.sender=:sender AND chats.recipient=:recipient",{sender:sender,recipient:recipient})
         .orWhere("chats.sender=:recipient AND chats.recipient=:sender",{recipient:recipient,sender:sender})
         .orderBy("chats.date")
@@ -47,5 +40,10 @@ export class ChatsService {
         .orderBy("chats.date")
         
         .getMany();
+    }
+
+    async getSenderRecipient(id){
+        return this.chatsRepository.find(id)
+
     }
 }

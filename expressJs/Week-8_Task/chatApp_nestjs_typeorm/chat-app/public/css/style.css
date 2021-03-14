@@ -8,7 +8,7 @@
 .main {
   width: 100vw;
   height: 100vh;
-  background: #2980b9;
+  background: linear-gradient(to right, #2980b9, #6dd5fa, #ffffff);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -124,4 +124,23 @@
   border: 1px solid #999999;
   background-color: #cccccc;
   color: #666666;
+}
+
+.profile button {
+  background: linear-gradient(to right, #d189ff, #f2fcfe);
+  border: none;
+  color: white;
+  padding: 5px 12px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  transition: 1s ease out;
+  margin-top: 5px;
+  font-weight: bold;
+}
+.profile button:hover {
+  background: linear-gradient(to right, #f2fcfe, #d189ff);
 }

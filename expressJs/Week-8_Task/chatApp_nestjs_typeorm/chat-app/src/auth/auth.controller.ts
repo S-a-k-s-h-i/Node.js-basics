@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Post, Render, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Get, Param, Post, Render, Req, Res, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt/dist/jwt.service';
@@ -6,6 +6,7 @@ import { Response,Request} from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { use } from 'passport';
+import { User } from './entity/User.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -37,7 +38,7 @@ export class AuthController {
         const user=await this.userService.createUser(createUserDto)
         //Removing password property
         delete user.password
-       
+        console.log('registered user',user);
         return user;
        }catch(err){
         if (err.code === 'ER_DUP_ENTRY') {
@@ -72,11 +73,23 @@ export class AuthController {
              message:'success'
          }
      }
+
+     @Post('logout')
+     async logout(@Res({passthrough:true}) response:Response){
+          response.clearCookie('jwt');
+          return {
+              message:'logout successfully'
+          }
+ 
+      }
      
      @UseGuards(JwtAuthGuard)
-     @Get('user')
-     getProfile(@Req() req) {
-        return req.user;
+     @Get('user/:id')
+     @Render('profile')
+     async getProfile(@Req() req) {
+         const id=req.user.userId;
+         const user=await this.userService.getUser({id})
+         return {name:user.name,email:user.email,phone:user.phone};
       }
     //  async user(@Req() request:Request){
     //     try{
@@ -97,15 +110,8 @@ export class AuthController {
     //         throw new UnauthorizedException();
     //     }
     //  }
+    
 
-     @Post('logout')
-     async logout(@Res({passthrough:true}) response:Response){
-         response.clearCookie('jwt');
-
-         return {
-             message:'logout successfully'
-         }
-
-     }
+   
 
 }

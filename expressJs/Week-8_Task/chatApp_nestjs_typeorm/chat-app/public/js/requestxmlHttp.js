@@ -80,6 +80,7 @@ export function authFunction(method,userdata,serverError){
 
         }else{
               console.log('register.....'+userdata);
+              console.log(userdata);
               xhr.open(method, "http://localhost:3000/auth/register", true);
               xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
               function replacer(key, value) {
@@ -96,7 +97,7 @@ export function authFunction(method,userdata,serverError){
               xhr.onload=function(){
                      console.log(xhr.responseText);
                      if(xhr.status==201){
-                        serverError.innerHTML='Registration Successfull <a href="/login">Click to Login</a>';
+                        serverError.innerHTML='Registration Successfull <a href="auth/login">Click to Login</a>';
                         serverError.className='serverError successful';
     
                      }else{
@@ -112,3 +113,14 @@ export function authFunction(method,userdata,serverError){
               }
         }
 }}
+
+export function logout(){
+    let xhr= new XMLHttpRequest();
+    xhr.open('post','http://localhost:3000/auth/logout',true);
+    xhr.send()
+    xhr.onload=function(){
+        console.log('logout successfully');
+        window.location.assign("http://localhost:3000/auth/login"); 
+    }
+
+}

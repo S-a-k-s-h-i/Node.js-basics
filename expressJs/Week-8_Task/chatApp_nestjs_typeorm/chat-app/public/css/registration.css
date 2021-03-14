@@ -75,6 +75,10 @@ body {
   visibility: hidden;
 }
 
+.form-control p {
+  color: grey;
+}
+
 .form .btn {
   background: var(--headcolor);
   width: 100%;

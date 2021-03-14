@@ -35,6 +35,7 @@ const setSuccessMsg = (input) => {
 
 const sendData = (userdata,srate,count) => {
      if(srate === count){
+       console.log('calling',userdata);
         authFunction('post',userdata,serverError);
      }
 }
