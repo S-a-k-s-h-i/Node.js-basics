@@ -23,14 +23,14 @@ export function requestFunction(method,conv,senderAddingToMessageBox,receiverAdd
         }
     }
     else if(method=='delete'){
-       console.log(typeof(conv));
-       console.log(conv);
+    //    console.log(typeof(conv));
+    //    console.log(conv);
        xhr.open(method,`http://localhost:3000/chats/${conv}`,true);
        xhr.send();
        loader.innerHTML=`<i class='fa fa-spinner fa-2x fa-spin'></i>`
        xhr.onload = function(){
               if(xhr.status==200){
-                     console.log('response',xhr.response);
+                    //  console.log('response',xhr.response);
                      loader.innerHTML='';
                      location.reload();
               }else{
@@ -45,6 +45,7 @@ export function requestFunction(method,conv,senderAddingToMessageBox,receiverAdd
        xhr.send();
        loader.innerHTML=`<i class='fa fa-spinner fa-2x fa-spin'></i>`
        xhr.onload = function(){
+            //   console.log('response....',xhr.response);
               conv(xhr.response)
               loader.innerHTML='';
       }

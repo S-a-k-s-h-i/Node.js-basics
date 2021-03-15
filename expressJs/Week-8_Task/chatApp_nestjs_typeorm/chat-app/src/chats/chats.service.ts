@@ -23,18 +23,9 @@ export class ChatsService {
     }
 
     async chatsBetween(sender:string,recipient:string):Promise<Chats[]>{
-        console.log('sender',sender);
-        console.log('receiver',recipient);
-
-        console.log('chats between',await this.chatsRepository.createQueryBuilder("chats")
-        .leftJoinAndSelect("chats.sender","user")
-        .where("chats.sender=:sender AND chats.recipient=:recipient",{sender:sender,recipient:recipient})
-        .orWhere("chats.sender=:recipient AND chats.recipient=:sender",{recipient:recipient,sender:sender})
-        .orderBy("chats.date")
-        .getMany());
         return await this.chatsRepository.createQueryBuilder("chats")
-        .where("chats.sender=:sender",{sender:sender})
-        .where("chats.recipient=:recipient",{recipient:recipient})
+        .leftJoinAndSelect("chats.sender","sender")
+        .leftJoinAndSelect("chats.recipient","recipient")
         .where("chats.sender=:sender AND chats.recipient=:recipient",{sender:sender,recipient:recipient})
         .orWhere("chats.sender=:recipient AND chats.recipient=:sender",{recipient:recipient,sender:sender})
         .orderBy("chats.date")

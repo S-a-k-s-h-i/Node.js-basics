@@ -54,7 +54,7 @@ function senderAddingToMessageBox(senderconv){
    user1Message.innerHTML = senderconv.senderMsg;
    let span = document.createElement('span');
    span.classList.add("sender");
-   let sender = document.createTextNode(senderconv.sender);
+   let sender = document.createTextNode(senderconv.sender.name);
    span.appendChild(sender);
    user1Message.appendChild(span);
    user1Message.onmouseover = function(){
@@ -72,7 +72,7 @@ function receiverAddingToMessageBox(receiverconv){
    user2Message.innerHTML = receiverconv.receiverMsg;
    let span = document.createElement('span');
    span.classList.add("sender");
-   let receiver = document.createTextNode(receiverconv.sender);
+   let receiver = document.createTextNode(receiverconv.sender.name);
    span.appendChild(receiver);
    user2Message.appendChild(span);
    user2Message.onmouseover = function(){
@@ -91,6 +91,7 @@ function history(){
    requestFunction('get',conversation,senderAddingToMessageBox,receiverAddingToMessageBox,loader,u1.id,u2.id);
    function conversation(res){
       sender_messages = JSON.parse(res);
+      console.log('sender_messages',sender_messages.sender)
       console.log("sender msg",sender_messages);
          for(let d=0;d<sender_messages.length;d++){
             if(sender_messages[d].senderMsg!=null)senderAddingToMessageBox(sender_messages[d]);
@@ -103,7 +104,7 @@ function deleteMessage(conv){
    requestFunction('delete',conv,null,null,loader,null,null);
 }
 
-
+window.onload(history());
 
 
 

@@ -38,8 +38,7 @@ export class ChatsController {
     }
 
     @Get('/:sender/:recipient')
-    ChatofSenderRecipient(@Param('sender') sender:string,@Param('recipient') recipient:string){
-        console.log(this.chatsService.chatsBetween(sender,recipient));
-       return this.chatsService.chatsBetween(sender,recipient);
+    async ChatofSenderRecipient(@Param('sender') sender:string,@Param('recipient') recipient:string){
+       return await this.chatsService.chatsBetween(sender,recipient);
     }
 }
