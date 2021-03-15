@@ -32,8 +32,8 @@ user2.addEventListener('change',(sel) => {
 function conversation(senderMsg,receiverMsg,sender,recipient){
    this.senderMsg = senderMsg;
    this.receiverMsg = receiverMsg;
-   this.sender = sender;
-   this.recipient = recipient;
+   this.senderId = sender;
+   this.recipientId = recipient;
 };
 button1.addEventListener('click',() => {
    if(textbox1 && textbox1.value){
@@ -54,10 +54,18 @@ function senderAddingToMessageBox(senderconv){
    user1Message.innerHTML = senderconv.senderMsg;
    let span = document.createElement('span');
    span.classList.add("sender");
-   let sender = document.createTextNode(senderconv.sender.name);
+   let sender;
+   if(Object.keys(senderconv).length===4)
+   //object coming after successful creation of chat
+   sender = document.createTextNode(senderconv.senderId);
+   else{
+   //object coming from history
+   sender = document.createTextNode(senderconv.sender.name);
+   }
    span.appendChild(sender);
    user1Message.appendChild(span);
    user1Message.onmouseover = function(){
+      console.log('senderconv.id',senderconv.id);
       delBox.innerHTML = `<i class='fa fa-trash-o fa-2x' id='deleteMe'></i>`
       document.getElementById ('deleteMe').addEventListener ("click",function(){
          deleteMessage(senderconv.id);
@@ -72,7 +80,13 @@ function receiverAddingToMessageBox(receiverconv){
    user2Message.innerHTML = receiverconv.receiverMsg;
    let span = document.createElement('span');
    span.classList.add("sender");
-   let receiver = document.createTextNode(receiverconv.sender.name);
+   let receiver;
+   if(Object.keys(receiverconv).length===4)
+   //object coming after successful creation of chat
+   receiver = document.createTextNode(receiverconv.senderId);
+   else
+   //object coming from history
+   receiver = document.createTextNode(receiverconv.sender.name);
    span.appendChild(receiver);
    user2Message.appendChild(span);
    user2Message.onmouseover = function(){
@@ -104,7 +118,7 @@ function deleteMessage(conv){
    requestFunction('delete',conv,null,null,loader,null,null);
 }
 
-window.onload(history());
+document.onload(history());
 
 
 

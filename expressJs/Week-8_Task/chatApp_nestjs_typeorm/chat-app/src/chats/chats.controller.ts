@@ -29,7 +29,8 @@ export class ChatsController {
     @Post()
     async create(@Body() chats:Chats){
         console.log('chats',chats);
-        return this.chatsService.createChats(chats);
+        const chat = this.chatsService.createChats(chats);
+        return chat;
     }
 
     @Delete('/:id')
@@ -37,8 +38,8 @@ export class ChatsController {
         this.chatsService.remove(id);
     }
 
-    @Get('/:sender/:recipient')
-    async ChatofSenderRecipient(@Param('sender') sender:string,@Param('recipient') recipient:string){
-       return await this.chatsService.chatsBetween(sender,recipient);
+    @Get('/:senderId/:recipientId')
+    async ChatofSenderRecipient(@Param('senderId') senderId:string,@Param('recipientId') recipientId:string){
+       return await this.chatsService.chatsBetween(senderId,recipientId);
     }
 }

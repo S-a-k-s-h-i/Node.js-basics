@@ -20,6 +20,14 @@ export class Chats{
 
     @CreateDateColumn()
     date:number;
+
+    @Column({type:"varchar",length:36})
+    senderId:string;
+    @Column({type:"varchar",length:36})
+    recipientId:string;
+
+
+
     
     
 

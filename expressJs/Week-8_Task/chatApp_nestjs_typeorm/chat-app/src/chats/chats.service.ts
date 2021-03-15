@@ -22,14 +22,13 @@ export class ChatsService {
         await this.chatsRepository.delete(id);
     }
 
-    async chatsBetween(sender:string,recipient:string):Promise<Chats[]>{
+    async chatsBetween(senderId:string,recipientId:string):Promise<Chats[]>{
         return await this.chatsRepository.createQueryBuilder("chats")
         .leftJoinAndSelect("chats.sender","sender")
         .leftJoinAndSelect("chats.recipient","recipient")
-        .where("chats.sender=:sender AND chats.recipient=:recipient",{sender:sender,recipient:recipient})
-        .orWhere("chats.sender=:recipient AND chats.recipient=:sender",{recipient:recipient,sender:sender})
+        .where("chats.senderId=:senderId AND chats.recipientId=:recipientId",{senderId:senderId,recipientId:recipientId})
+        .orWhere("chats.senderId=:recipientId AND chats.recipientId=:senderId",{recipientId:recipientId,senderId:senderId})
         .orderBy("chats.date")
-        
         .getMany();
     }
 
