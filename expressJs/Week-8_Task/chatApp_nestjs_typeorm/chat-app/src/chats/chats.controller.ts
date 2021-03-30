@@ -28,7 +28,6 @@ export class ChatsController {
 
     @Post()
     async create(@Body() chats:Chats){
-        console.log('chats',chats);
         const chat = this.chatsService.createChats(chats);
         return chat;
     }

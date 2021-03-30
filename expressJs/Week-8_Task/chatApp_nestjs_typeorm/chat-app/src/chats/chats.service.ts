@@ -14,7 +14,6 @@ export class ChatsService {
     }
 
     async createChats(chats:Chats){
-        console.log('service',chats);
         this.chatsRepository.save(chats);
     }
 

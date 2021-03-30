@@ -118,9 +118,11 @@ function deleteMessage(conv){
    requestFunction('delete',conv,null,null,loader,null,null);
 }
 
-document.onload(history());
 
-
+window.onload = function () {
+   // do the work after everything was loaded (DOM, media elements)
+   history()
+   }
 
 
 
